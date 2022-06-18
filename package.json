@@ -1,0 +1,22 @@
+{
+  "name": "hackatarch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {}
+  },
+  "author": "sreehari jayaraj",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.1"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2"
+  }
+}
