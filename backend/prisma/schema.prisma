@@ -17,6 +17,7 @@ model User {
   image    String
   email    String
   social   Social?
+  UID      String  @unique
 }
 
 model Social {
