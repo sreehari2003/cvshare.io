@@ -15,7 +15,7 @@ model User {
   name     String
   username String  @unique
   image    String
-  email    String
+  email    String  @unique
   social   Social?
   UID      String  @unique
 }
