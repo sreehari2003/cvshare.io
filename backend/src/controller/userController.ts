@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from "express";
 
 export const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, username, image } = req.body;
+    const { name, email, username, image, UID } = req.body;
     if (!name || !email || !username || !image) {
       return next(new appError("missing all required inputs", 404));
     }
@@ -16,6 +16,7 @@ export const createUser = catchAsync(
         email,
         username,
         image,
+        UID,
       },
     });
 

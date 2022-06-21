@@ -1,15 +1,11 @@
 import express, { Application } from "express";
 import { PrismaClient } from "@prisma/client";
-import userRoutes from "../routes/userRoutes";
 import { Request, Response, NextFunction } from "express";
 import appError from "../utils/appError";
 import morgan from "morgan";
-import supertokens from "supertokens-node";
-import { middleware } from "supertokens-node/framework/express";
 import cors from "cors";
-import { errorHandler } from "supertokens-node/framework/express";
-import SuperTokens from "supertokens-node";
-import { authBackendConfig } from "../config/auth";
+import cookieSession from "cookie-session";
+import passport from "passport";
 
 export const server: Application = express();
 export const prisma = new PrismaClient();
@@ -28,23 +24,24 @@ main()
     await prisma.$disconnect();
   });
 
-//SUPERTOKEN CONFIG FUNCTION
-SuperTokens.init(authBackendConfig);
+// global
+server.use(
+  cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+);
 server.use(express.json());
 server.use(morgan("dev"));
+server.use(passport.initialize());
+server.use(passport.session());
 //SUPERTOKEN SPECIFIC
 server.use(
   cors({
     origin: "http://localhost:3000",
-    allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
+    allowedHeaders: ["content-type"],
     credentials: true,
   })
 );
-server.use(middleware());
 
 //ALL ROUTES
-
-server.use("/user", userRoutes);
 
 server.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(
@@ -52,8 +49,6 @@ server.all("*", (req: Request, res: Response, next: NextFunction) => {
   );
 });
 
-//SUPERTOKEN ERROR HANDLER
-server.use(errorHandler());
 //global error handler
 server.use((err: any, req: Request, res: Response, next: NextFunction) => {
   err.statusCode = err.statusCode || 500;
