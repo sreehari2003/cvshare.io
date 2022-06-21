@@ -4,8 +4,6 @@ import { Request, Response, NextFunction } from "express";
 import appError from "../utils/appError";
 import morgan from "morgan";
 import cors from "cors";
-import cookieSession from "cookie-session";
-import passport from "passport";
 
 export const server: Application = express();
 export const prisma = new PrismaClient();
@@ -25,13 +23,10 @@ main()
   });
 
 // global
-server.use(
-  cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
-);
+
 server.use(express.json());
 server.use(morgan("dev"));
-server.use(passport.initialize());
-server.use(passport.session());
+
 //SUPERTOKEN SPECIFIC
 server.use(
   cors({
