@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import appError from "../utils/appError";
 import morgan from "morgan";
 import cors from "cors";
+import authRoutes from "../routes/auth";
 
 export const server: Application = express();
 export const prisma = new PrismaClient();
@@ -26,8 +27,8 @@ main()
 
 server.use(express.json());
 server.use(morgan("dev"));
-
-//SUPERTOKEN SPECIFIC
+//Routes Registration
+server.use("/auth", authRoutes);
 server.use(
   cors({
     origin: "http://localhost:3000",
@@ -35,9 +36,6 @@ server.use(
     credentials: true,
   })
 );
-
-//ALL ROUTES
-
 server.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(
     new appError(`The requested page ${req.originalUrl} was not found`, 404)

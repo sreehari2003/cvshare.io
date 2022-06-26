@@ -11,13 +11,23 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  username String  @unique
-  image    String
-  email    String  @unique
-  social   Social?
-  UID      String  @unique
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  username  String     @unique
+  image     String
+  email     String     @unique
+  UID       String     @unique
+  social    Social?
+  Education Education?
+  Projects  Projects[]
+}
+
+model Company {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  email   String  @unique
+  name    String
+  website String  @unique
+  logo    String?
 }
 
 model Social {
@@ -26,6 +36,28 @@ model Social {
   linkedIn String?
   dribble  String?
   behance  String?
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @unique @db.ObjectId
+}
+
+model Education {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  college String
+  Year    String
+  Grade   String?
+  Majour  String
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @unique @db.ObjectId
+}
+
+model Projects {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  url   String?
+  Stack String
+  info  String
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String? @unique @db.ObjectId
