@@ -33,6 +33,8 @@ export const createUser = catchAsync(
         username,
         image,
         UID,
+        Education:{},
+        Projects:{},
       },
     });
     const token = hashJwt(result.UID);
