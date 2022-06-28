@@ -36,14 +36,14 @@ server.use(
     credentials: true,
   })
 );
-server.all("*", (req: Request, res: Response, next: NextFunction) => {
+server.all("*", (req: Request, _res: Response, next: NextFunction) => {
   next(
     new appError(`The requested page ${req.originalUrl} was not found`, 404)
   );
 });
 
 //global error handler
-server.use((err: any, req: Request, res: Response, next: NextFunction) => {
+server.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 
