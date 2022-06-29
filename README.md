@@ -15,10 +15,10 @@ npm install -g pnpm
 ## FRONTEND
 
 we are using <code>next js,tailwind css and typescript </code>
-in our frontend with <code> supertokens </code> for whole auth architecture we will be updating our figma design later
+in our frontend  we will be updating our figma design later
 
 ## Backend
 
-The whole backend is powerd by <code>Express and typescript </code> with <code>supertokens</code> as auth architecture we have used <code>mongodb</code> as Database and <code>Prisma</code> as ORM
+The whole backend is powerd by <code>Express and typescript </code>  we have used <code>mongodb</code> as Database and <code>Prisma</code> as ORM
 
 #### Feel Free to contribute
