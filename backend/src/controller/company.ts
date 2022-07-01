@@ -20,5 +20,10 @@ export const createCompany = catchAsync(
       },
     });
     const hashedId = hashJwt(dbResponse.id);
+
+    res.cookie("jwtComp", hashedId);
+    res
+      .status(201)
+      .json(serverResponse("company was created successfully", dbResponse));
   }
 );
