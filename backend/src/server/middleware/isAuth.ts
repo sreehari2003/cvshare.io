@@ -30,6 +30,10 @@ export const isAuth = catchAsync(
       where: {
         UID: _id,
       },
+      select: {
+        email: true,
+        UID: true,
+      },
     });
     if (extistingUser) {
       // This might throw an TS error
