@@ -8,9 +8,15 @@ import { hashJwt } from "../utils/hash";
 //Function to create user
 export const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, username, image, UID } = req.body;
-    if (!name || !email || !username || !image) {
+    const { name, email, image, UID } = req.body;
+    if (!name || !email || !image || !UID) {
       return next(new appError("missing all required inputs", 404));
+    }
+    // NEED TO CHANGE THIS FOR UNIQUE USERS NAME WHEN WE SCALE
+
+    let username: string = req.body.username;
+    if (!username) {
+      username = email;
     }
     const existUser = await prisma.user.findUnique({
       where: {
@@ -33,8 +39,8 @@ export const createUser = catchAsync(
         username,
         image,
         UID,
-        Education:{},
-        Projects:{},
+        Education: {},
+        Projects: {},
       },
     });
     const token = hashJwt(result.UID);

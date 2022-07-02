@@ -11,13 +11,13 @@ export const deleteUser = catchAsync(
       return next(new appError("user not found", 404));
     }
 
-    await prisma.user.delete({
+    const resp = await prisma.user.delete({
       where: {
         email: user.email,
       },
     });
 
-    res.status(200).json(serverResponse("user deleted successfully", 201));
+    res.status(200).json(serverResponse("user deleted successfully", resp));
   }
 );
 
@@ -55,5 +55,15 @@ export const addEducation = catchAsync(
     });
 
     res.status(201).json(serverResponse("education was added", response));
+  }
+);
+
+export const getAllUsers = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const response = await prisma.user.findMany();
+    console.log(response);
+    res
+      .status(201)
+      .json(serverResponse("request was successfully completed", response));
   }
 );
