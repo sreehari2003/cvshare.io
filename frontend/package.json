@@ -9,6 +9,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "autoprefixer": "^10.4.7",
     "firebase": "^9.8.3",
     "framer-motion": "^6",
     "next": "latest",

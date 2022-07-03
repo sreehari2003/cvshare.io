@@ -3,6 +3,8 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useRouter } from "next/router";
 import { useToast } from '@chakra-ui/react'
+import Image from "next/image";
+import Humans2 from "../../assets/images/Humaaans1.png";
 const Index = () => {
   const authFunc = () => {
     //fiebase login code
@@ -42,8 +44,16 @@ const Index = () => {
         })
       }
     };
+    getAuth();
   };
-  return <div>AUTH PAGE</div>;
+
+
+  return (
+    <div className="h-screen bg-[#fdf0d5]">
+      <Image src={Humans2} height={350} width={500} />
+    </div>
+
+  )
 };
 
 export default Index;
