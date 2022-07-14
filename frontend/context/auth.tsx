@@ -1,14 +1,21 @@
 import React, { createContext } from "react"
 
+interface AuthState {
+    isAuth: boolean;
+}
 
 
-const AuthCTX = createContext();
+const AuthCTX = createContext<AuthState>({
+    isAuth: false,
+});
 
 
-const AuthCTXProvider: React.FC = ({ children }) => {
-
+const AuthCTXProvider: React.FC = (props) => {
     return (
-        { children }
+        <>
+            <AuthCTX>{props.children}</AuthCTX>
+
+        </>
     )
 }
 
