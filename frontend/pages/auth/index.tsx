@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useRouter } from "next/router";
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, useColorMode, useToast } from "@chakra-ui/react";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { CREATEUSER } from "../../api";
 import axios from "axios";
-
+import Cookie from "js-cookie";
+import Head from "next/head";
 
 const Index = () => {
+  // fall back based on auth state
+  const { colorMode, toggleColorMode } = useColorMode();
+  useEffect(() => {
+    if (Cookie.get("jwtID")) {
+      router.back();
+    }
+  }, [Cookie.get("jwtID")]);
+
+  useEffect(() => {
+    if (colorMode === "light") {
+      setBg("bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500");
+    } else {
+      setBg("bg-gradient-to-tl from-gray-700 via-gray-900 to-black");
+    }
+  }, [colorMode]);
+  const [background, setBg] = useState<string>("bg-gradient-to-tl from-gray-700 via-gray-900 to-black");
   const toast = useToast();
   const router = useRouter();
+  const [msg, setMsg] = useState<string>("Sign up Successfull");
   // Authentication Function
   const authFunc = () => {
     //fiebase login code
@@ -18,27 +36,30 @@ const Index = () => {
     const getAuth = async () => {
       try {
         const res = await signInWithPopup(auth, provider);
-        const data = res.user;
+        const oauth = res.user;
         const query = {
-          name: data.displayName,
-          email: data.email,
-          UID: data.uid,
-          image: data.photoURL,
+          name: oauth.displayName,
+          email: oauth.email,
+          UID: oauth.uid,
+          image: oauth.photoURL,
         };
         //sending post req return a boolean
         if (!res.user.emailVerified) throw new Error("Couldn't sign in");
-        const apiRes = await axios.post(CREATEUSER, query, {
+        const { data } = await axios.post(CREATEUSER, query, {
           withCredentials: true,
         });
-        if (!apiRes.data.ok) throw new Error();
+        if (!data.ok) throw new Error();
+        if (data.message.startsWith("welcome")) {
+          setMsg("You were logged in successfully");
+        }
         toast({
-          title: "Account created.",
-          description: "We've created your account for you.",
+          title: data.message,
+          description: msg,
           status: "success",
           duration: 9000,
           isClosable: true,
         });
-        router.push("/");
+        router.replace("/");
       } catch (e) {
         // alert("could not sign in");
         toast({
@@ -54,9 +75,9 @@ const Index = () => {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 flex justify-center items-center flex-col">
+    <div className={`h-screen ${background}  flex justify-center items-center flex-col `}>
       <div className="h-[300px] bg-white flex justify-center items-center flex-col w-[350px] rounded-lg">
-        <h1 className="font-bold text-[26px] ">Login/Signup</h1>
+        <h1 className="font-bold text-[26px] text-black" onClick={toggleColorMode}>Login/Signup</h1>
         <Button
           colorScheme="red"
           className="flex justify-between mt-10"
@@ -66,6 +87,10 @@ const Index = () => {
           <h6>Sign Up With Google</h6>
         </Button>
       </div>
+      <Head>
+        <title>Auth</title>
+        <meta name="description" content="user authorization" />
+      </Head>
     </div>
   );
 };

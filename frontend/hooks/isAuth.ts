@@ -1,8 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
+import Cookie from "js-cookie";
 import { useRouter } from "next/router";
-const IsAuth = () => {
-  const router = useRouter();
-  return router.push("/auth");
-};
 
-export default IsAuth;
+export const IsAuth = () => {
+  const router = useRouter();
+  useEffect(() => {
+    if (!Cookie.get("jwtID")) {
+      router.replace("/auth");
+    }
+  }, [Cookie.get("jwtID")]);
+  return null;
+};
