@@ -59,7 +59,7 @@ export const addEducation = catchAsync(
 );
 
 export const getAllUsers = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (_req: Request, res: Response, _next: NextFunction) => {
     const response = await prisma.user.findMany();
     console.log(response);
     res

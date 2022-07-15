@@ -13,7 +13,6 @@ export const createUser = catchAsync(
       return next(new appError("missing all required inputs", 404));
     }
     // NEED TO CHANGE THIS FOR UNIQUE USERS NAME WHEN WE SCALE
-
     let username: string = req.body.username;
     if (!username) {
       username = email;
