@@ -24,18 +24,17 @@ main()
   });
 
 // global
-
+server.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+    credentials: true,
+  })
+);
 server.use(express.json());
 server.use(morgan("dev"));
 //Routes Registration
 server.use("/auth", authRoutes);
-server.use(
-  cors({
-    origin: "http://localhost:3000",
-    allowedHeaders: ["content-type"],
-    credentials: true,
-  })
-);
+
 server.all("*", (req: Request, _res: Response, next: NextFunction) => {
   next(
     new appError(`The requested page ${req.originalUrl} was not found`, 404)

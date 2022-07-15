@@ -10,7 +10,7 @@ interface JwtPayload {
 }
 
 export const isAuth = catchAsync(
-  async (req: User, res: Response, next: NextFunction) => {
+  async (req: User, _res: Response, next: NextFunction) => {
     let token: string;
     if (
       req.headers &&
