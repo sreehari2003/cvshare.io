@@ -4,13 +4,13 @@ import { auth } from "../../firebase/config";
 import { useRouter } from "next/router";
 import { Button, useToast } from "@chakra-ui/react";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import { CREATEUSER } from "../../api";
+import axios from "axios";
+
 
 const Index = () => {
   const toast = useToast();
   const router = useRouter();
-
-
-
   // Authentication Function
   const authFunc = () => {
     //fiebase login code
@@ -27,7 +27,10 @@ const Index = () => {
         };
         //sending post req return a boolean
         if (!res.user.emailVerified) throw new Error("Couldn't sign in");
-        // if (!bool) throw new Error("Couldn't sign in");
+        const apiRes = await axios.post(CREATEUSER, query, {
+          withCredentials: true,
+        });
+        if (!apiRes.data.ok) throw new Error();
         toast({
           title: "Account created.",
           description: "We've created your account for you.",
