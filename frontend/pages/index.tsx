@@ -1,7 +1,11 @@
 import React from "react";
 import Head from "next/head";
+import { IsAuth } from "../hooks/isAuth";
 
 const Index = () => {
+  // check auth function
+  IsAuth();
+
   return (
     <>
       <Head>
