@@ -1,6 +1,11 @@
 import express from "express";
-import { createCompany } from "../controller/company";
-import { addEducation, deleteUser, getAllUsers } from "../controller/user";
+import { createCompany, companyLogin } from "../controller/company";
+import {
+  addEducation,
+  deleteUser,
+  getAllUsers,
+  updateUserName,
+} from "../controller/user";
 import { createUser, addSocial } from "../controller/auth";
 import { isAuth } from "../server/middleware/isAuth";
 const router = express.Router();
@@ -8,7 +13,9 @@ const router = express.Router();
 router.route("/users").get(getAllUsers).post(createUser).delete(deleteUser);
 router.route("/users/social").patch(isAuth, addSocial);
 router.route("/users/education").patch(isAuth, addEducation);
+router.route("/users/username").patch(isAuth, updateUserName);
 //company
-router.route("/company").post(createCompany);
+router.route("/company/signup").post(createCompany);
+router.route("/company/login").post(companyLogin);
 
 export default router;

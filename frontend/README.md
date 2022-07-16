@@ -1,3 +1,42 @@
+# PROJECT SETUP
+
+## create a file called ".env.local" and then add it with your firebase configuration
+
+<table>
+   <tr>
+   <th>KEYNAME</th>
+   <th>TYPE</td>
+</tr>
+   <tr>
+   <td>APIKEY</td>
+   <td>string</td>
+</tr>
+  <tr>
+   <td>DOMAIN</td>
+   <td>string</td>
+</tr>
+ <tr>
+   <td>PROJECTID</td>
+   <td>string</td>
+</tr>
+ <tr>
+   <td>BUCKET</td>
+   <td>string</td>
+</tr>
+ <tr>
+   <td>SENDERID</td>
+   <td>string</td>
+</tr>
+ <tr>
+   <td>APPID</td>
+   <td>string</td>
+</tr>
+ <tr>
+   <td>MEASUREID</td>
+   <td>string</td>
+</tr>
+</table>
+<hr />
 # Next.js + Tailwind CSS Example
 
 This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
@@ -10,7 +49,7 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 ## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Execute [`create-next-app`](https://github.com/vercel/next.js/trvcee/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
 npx create-next-app --example with-tailwindcss with-tailwindcss-app

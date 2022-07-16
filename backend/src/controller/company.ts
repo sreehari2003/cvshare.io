@@ -8,7 +8,18 @@ import { hashJwt } from "../utils/hash";
 export const createCompany = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, website, name, logo } = req.body;
-    if (!email || website || logo || name) {
+
+    if (!email) {
+      return next(new appError("please provide email", 401));
+    }
+    const isExist = await prisma.company.findUnique({
+      where: { email: email },
+    });
+    if (isExist) {
+      return next(new appError("company already exists please Login", 404));
+    }
+
+    if (!website || !logo || !name) {
       return next(new appError("please provide all required parameters", 401));
     }
     const dbResponse = await prisma.company.create({
@@ -22,8 +33,33 @@ export const createCompany = catchAsync(
     const hashedId = hashJwt(dbResponse.id);
 
     res.cookie("jwtComp", hashedId);
+    // UID for each company for their web setup
+    res.cookie("UID", dbResponse.id);
     res
       .status(201)
       .json(serverResponse("company was created successfully", dbResponse));
+  }
+);
+
+export const companyLogin = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+    if (!email) {
+      return next(new appError("please provide a email", 401));
+    }
+    const company = await prisma.company.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (!company) {
+      return next(new appError("company already exists please Login", 404));
+    }
+    // STEP 1
+    // need to send the email to company  with a api url to validate user
+
+    res
+      .status(200)
+      .json(serverResponse(`welcome back ${company.name}`, company));
   }
 );

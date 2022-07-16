@@ -12,7 +12,8 @@ export const UPDATESOCIAL = BASE + "auth/users/social";
 export const EDUCATION = BASE + "auth/users/education";
 // POST request
 export const COMPANY = BASE + "auth/users/company";
-
+// PATCH REQUEST
+export const USERNAME = BASE + "auth/users/username";
 
 
 
