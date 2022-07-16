@@ -2,8 +2,9 @@ import { serverResponse } from "../utils/response";
 import appError from "../utils/appError";
 import catchAsync from "../utils/catchAsync";
 import { prisma } from "../server/index";
-import { User, Response, NextFunction } from "express";
+import { User, Response, NextFunction, Request } from "express";
 
+// delete user function
 export const deleteUser = catchAsync(
   async (req: User, res: Response, next: NextFunction) => {
     const user = req?.user;
@@ -21,6 +22,7 @@ export const deleteUser = catchAsync(
   }
 );
 
+// adding education
 export const addEducation = catchAsync(
   async (req: User, res: Response, next: NextFunction) => {
     const { college, year, grade, majour } = req.body;
@@ -57,7 +59,32 @@ export const addEducation = catchAsync(
     res.status(201).json(serverResponse("education was added", response));
   }
 );
+// updating username
+export const updateUserName = catchAsync(
+  async (req: User, res: Response, next: NextFunction) => {
+    const user = req?.user;
+    if (!user) {
+      return next(new appError("user not found", 404));
+    }
+    const { userName } = req.body;
+    if (!userName) {
+      return next(new appError("no username provided", 404));
+    }
+    const currentUser = await prisma.user.update({
+      where: {
+        email: user.email,
+      },
+      data: {
+        username: userName,
+      },
+    });
+    res
+      .status(201)
+      .json(serverResponse("username was successfully updated", currentUser));
+  }
+);
 
+// getting all users
 export const getAllUsers = catchAsync(
   async (_req: Request, res: Response, _next: NextFunction) => {
     const response = await prisma.user.findMany();

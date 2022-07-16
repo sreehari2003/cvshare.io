@@ -20,7 +20,17 @@ create users socials and add info to db
 `/auth/users/education`
 create users Education and add info to db -PATCH
 
+### update username
+
+`/auth/users/username` - PATCH
+create company and add info to db
+
 ### creating a new company
 
-`/auth/company/`
+`/auth/company/signup` -POST
 create company and add info to db
+
+### login company
+
+`/auth/company/login` -POST
+login to company
