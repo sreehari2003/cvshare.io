@@ -76,3 +76,11 @@ export const addSocial = catchAsync(
     res.status(200).json(serverResponse("Socials were added", result));
   }
 );
+
+//Function to validate the JWT
+export const handleJWTValidation = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // If the function is called, then it means no error was presented in the isAuth middleware
+    res.status(200).json(serverResponse("You are authenticated", null));
+  }
+);
