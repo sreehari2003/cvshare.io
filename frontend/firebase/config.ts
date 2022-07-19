@@ -3,15 +3,15 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAKEqifx1Madi2-88MDgMWfl8Og8xUHDs0",
-  authDomain: "finance-flutter.firebaseapp.com",
-  projectId: "finance-flutter",
-  storageBucket: "finance-flutter.appspot.com",
-  messagingSenderId: "1050081315473",
-  appId: "1:1050081315473:web:5b4b8717a647aad66ecd30",
-  measurementId: "G-PYHLXDTEDH",
+  apiKey: process.env.NEXT_PUBLIC_APIKEY,
+  authDomain: process.env.NEXT_PUBLIC_DOMAINDOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECTID,
+  storageBucket: process.env.NEXT_PUBLIC_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_SENDERID,
+  appId: process.env.NEXT_PUBLIC_APPID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREID,
 };
-
+console.log(firebaseConfig.apiKey);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
