@@ -4,14 +4,14 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APIKEY,
-  authDomain: process.env.NEXT_PUBLIC_DOMAINDOMAIN,
+  authDomain: process.env.NEXT_PUBLIC_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECTID,
   storageBucket: process.env.NEXT_PUBLIC_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_SENDERID,
   appId: process.env.NEXT_PUBLIC_APPID,
   measurementId: process.env.NEXT_PUBLIC_MEASUREID,
 };
-console.log(firebaseConfig.apiKey);
 // Initialize Firebase
+console.log(firebaseConfig);
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

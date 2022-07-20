@@ -21,6 +21,7 @@ specifiers:
   react: 18.1.0
   react-dom: 18.1.0
   react-icons: ^4.4.0
+  react-loader-spinner: ^5.1.5
   tailwindcss: ^3.1.2
   typescript: 4.7.2
 
@@ -38,6 +39,7 @@ dependencies:
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
   react-icons: 4.4.0_react@18.1.0
+  react-loader-spinner: 5.1.5_ef5jwxihqo6n7gxfmzogljlgcm
 
 devDependencies:
   '@types/node': 17.0.35
@@ -3589,6 +3591,16 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-loader-spinner/5.1.5_ef5jwxihqo6n7gxfmzogljlgcm:
+    resolution: {integrity: sha512-kHSBa3pNPNzd3UGOiOsHCC33qx5bZA7IHKau+YSTVn36Jib4eBVx/TNMggudbzW5CTnRCbP5bnYU4ACAX3mA6g==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+    dev: false
 
   /react-remove-scroll-bar/2.3.3_7cpxmzzodpxnolj5zcc5cr63ji:
     resolution: {integrity: sha512-i9GMNWwpz8XpUpQ6QlevUtFjHGqnPG4Hxs+wlIJntu/xcsZVEpJcIV71K3ZkqNy2q3GfgvkD7y6t/Sv8ofYSbw==}

@@ -1,8 +1,9 @@
-// import axiosClient from "axios";
-// import Cookie from "js-cookie";
-// import type { AxiosRequestConfig } from "axios";
+import Axios from "axios";
+
 
 const BASE = "http://localhost:3001/"
+// POST REQ WITH BEARER TOKEN
+export const VERIFYJWT = BASE + "auth/jwt";
 
 // POST request
 export const CREATEUSER = BASE + "auth/users";
@@ -17,22 +18,15 @@ export const USERNAME = BASE + "auth/users/username";
 
 
 
-// const cookie = Cookie.get("jwtID") as string;
+let urls = {
+    test: `http://localhost:3001/`,
+    development: 'http://localhost:3001/',
+}
+export const api = Axios.create({
+    baseURL: urls.development,
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+});
 
-// const instance = axiosClient.create({
-//     headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json; charset=utf-8",
-//         authorization: `Bearer ${cookie}`
-
-//     },
-// });
-
-// instance.interceptors.request.use(
-//     config => {
-//         return config;
-//     },
-//     error => {
-//         return Promise.reject(error);
-//     }
-// );
