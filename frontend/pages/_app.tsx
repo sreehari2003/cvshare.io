@@ -1,15 +1,22 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
+import { AnimatePresence } from "framer-motion";
+import React from "react";
+import { AuthContextProvider } from "../context/Auth";
 
-import React, { useEffect } from "react";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+    <AuthContextProvider>
+      <AnimatePresence exitBeforeEnter>
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </AnimatePresence>
+    </AuthContextProvider>
+  );
 }
 
 export default MyApp;
