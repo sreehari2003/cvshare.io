@@ -10,17 +10,19 @@ export const createCompany = catchAsync(
     const { email, website, name, logo } = req.body;
 
     if (!email) {
-      return next(new appError("please provide email", 401));
+      return next(new appError("Please provide an email", 401));
     }
     const isExist = await prisma.company.findUnique({
       where: { email: email },
     });
     if (isExist) {
-      return next(new appError("company already exists please Login", 404));
+      return next(new appError("Company already exists, please login", 404));
     }
 
     if (!website || !logo || !name) {
-      return next(new appError("please provide all required parameters", 401));
+      return next(
+        new appError("Please provide all the required parameters", 401)
+      );
     }
     const dbResponse = await prisma.company.create({
       data: {
@@ -45,7 +47,7 @@ export const companyLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
     if (!email) {
-      return next(new appError("please provide a email", 401));
+      return next(new appError("Please provide an email", 401));
     }
     const company = await prisma.company.findUnique({
       where: {
@@ -53,13 +55,13 @@ export const companyLogin = catchAsync(
       },
     });
     if (!company) {
-      return next(new appError("company already exists please Login", 404));
+      return next(new appError("Company already exists, please login", 404));
     }
     // STEP 1
     // need to send the email to company  with a api url to validate user
 
     res
       .status(200)
-      .json(serverResponse(`welcome back ${company.name}`, company));
+      .json(serverResponse(`Welcome back ${company.name}`, company));
   }
 );

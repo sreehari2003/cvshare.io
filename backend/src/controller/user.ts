@@ -9,7 +9,7 @@ export const deleteUser = catchAsync(
   async (req: User, res: Response, next: NextFunction) => {
     const user = req?.user;
     if (!user) {
-      return next(new appError("user not found", 404));
+      return next(new appError("User not found", 404));
     }
 
     const resp = await prisma.user.delete({
@@ -18,7 +18,7 @@ export const deleteUser = catchAsync(
       },
     });
 
-    res.status(200).json(serverResponse("user deleted successfully", resp));
+    res.status(200).json(serverResponse("User deleted successfully", resp));
   }
 );
 
@@ -27,11 +27,11 @@ export const addEducation = catchAsync(
   async (req: User, res: Response, next: NextFunction) => {
     const { college, year, grade, majour } = req.body;
     if (!college || !year || !majour) {
-      return next(new appError("please provide all required fields", 404));
+      return next(new appError("Please provide all the required fields", 404));
     }
     const user = req?.user;
     if (!user) {
-      return next(new appError("user not found", 404));
+      return next(new appError("User not found", 404));
     }
 
     const response = await prisma.user.update({
@@ -56,7 +56,7 @@ export const addEducation = catchAsync(
       },
     });
 
-    res.status(201).json(serverResponse("education was added", response));
+    res.status(201).json(serverResponse("Education was added", response));
   }
 );
 // updating username
@@ -64,11 +64,11 @@ export const updateUserName = catchAsync(
   async (req: User, res: Response, next: NextFunction) => {
     const user = req?.user;
     if (!user) {
-      return next(new appError("user not found", 404));
+      return next(new appError("User not found", 404));
     }
     const { userName } = req.body;
     if (!userName) {
-      return next(new appError("no username provided", 404));
+      return next(new appError("No username provided", 404));
     }
     const currentUser = await prisma.user.update({
       where: {
@@ -80,7 +80,9 @@ export const updateUserName = catchAsync(
     });
     res
       .status(201)
-      .json(serverResponse("username was successfully updated", currentUser));
+      .json(
+        serverResponse("The username was successfully updated", currentUser)
+      );
   }
 );
 
@@ -91,6 +93,6 @@ export const getAllUsers = catchAsync(
     console.log(response);
     res
       .status(201)
-      .json(serverResponse("request was successfully completed", response));
+      .json(serverResponse("The request was successfully completed", response));
   }
 );
