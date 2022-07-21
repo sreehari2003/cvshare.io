@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { useRouter } from "next/router";
 import { Button, useColorMode, useToast } from "@chakra-ui/react";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import AuthContext from "../../context/Auth";
 import { CREATEUSER } from "../../api";
 import axios from "axios";
 import Cookie from "js-cookie";
 import Head from "next/head";
 
 const Index = () => {
+  const { logInHandler } = useContext(AuthContext);
   // fall back based on auth state
   const { colorMode, toggleColorMode } = useColorMode();
   useEffect(() => {
@@ -25,7 +27,9 @@ const Index = () => {
       setBg("bg-gradient-to-tl from-gray-700 via-gray-900 to-black");
     }
   }, [colorMode]);
-  const [background, setBg] = useState<string>("bg-gradient-to-tl from-gray-700 via-gray-900 to-black");
+  const [background, setBg] = useState<string>(
+    "bg-gradient-to-tl from-gray-700 via-gray-900 to-black"
+  );
   const toast = useToast();
   const router = useRouter();
   const [msg, setMsg] = useState<string>("Sign up Successfull");
@@ -49,6 +53,7 @@ const Index = () => {
           withCredentials: true,
         });
         if (!data.ok) throw new Error();
+        logInHandler(data?.data);
         if (data.message.startsWith("welcome")) {
           setMsg("You were logged in successfully");
         }
@@ -75,9 +80,16 @@ const Index = () => {
   };
 
   return (
-    <div className={`h-screen ${background}  flex justify-center items-center flex-col `}>
+    <div
+      className={`h-screen ${background}  flex justify-center items-center flex-col `}
+    >
       <div className="h-[300px] bg-white flex justify-center items-center flex-col w-[350px] rounded-lg">
-        <h1 className="font-bold text-[26px] text-black" onClick={toggleColorMode}>Login/Signup</h1>
+        <h1
+          className="font-bold text-[26px] text-black"
+          onClick={toggleColorMode}
+        >
+          Login/Signup
+        </h1>
         <Button
           colorScheme="red"
           className="flex justify-between mt-10"

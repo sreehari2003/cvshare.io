@@ -10,7 +10,11 @@ import { createUser, addSocial, handleJWTValidation } from "../controller/auth";
 import { isAuth } from "../server/middleware/isAuth";
 const router = express.Router();
 
+<<<<<<< HEAD
+router.route("/me").get(isAuth, handleJWTValidation);
+=======
 router.route("/jwt").post(isAuth, handleJWTValidation);
+>>>>>>> main
 router.route("/users").get(getAllUsers).post(createUser).delete(deleteUser);
 router.route("/users/social").patch(isAuth, addSocial);
 router.route("/users/education").patch(isAuth, addEducation);
