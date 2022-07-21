@@ -21,8 +21,13 @@ export const isAuth = catchAsync(
     } else {
       return next(new AppError("User not logged in", 401));
     }
+<<<<<<< HEAD
     const { id } = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
     if (!id) {
+=======
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+    if (!_id) {
+>>>>>>> main
       return next(new AppError("Invalid user id, please login again", 401));
     }
 

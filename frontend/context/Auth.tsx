@@ -13,7 +13,7 @@ const AuthContext = React.createContext<AuthCtx>({
   isLoggedIn: false,
   logOut: () => {},
   user: null,
-  isLoading: true,
+  isLoading: false,
   logInHandler: () => {},
 });
 
