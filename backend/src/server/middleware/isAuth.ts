@@ -19,11 +19,11 @@ export const isAuth = catchAsync(
     ) {
       token = req.headers.authorization.split(" ")[1];
     } else {
-      return next(new AppError("user not logged in", 401));
+      return next(new AppError("User not logged in", 401));
     }
     const { _id } = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
     if (!_id) {
-      return next(new AppError("Inavild user id please login Again", 401));
+      return next(new AppError("Invalid user id, please login again", 401));
     }
 
     const extistingUser = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export const isAuth = catchAsync(
       req.user = extistingUser;
       next();
     } else {
-      return next(new AppError("Inavild user id please login Again", 401));
+      return next(new AppError("Invalid user id, please login again", 401));
     }
   }
 );

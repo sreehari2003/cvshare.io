@@ -10,7 +10,7 @@ export const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, image, UID } = req.body;
     if (!name || !email || !image || !UID) {
-      return next(new appError("missing all required inputs", 404));
+      return next(new appError("Missing all the required inputs", 404));
     }
     // NEED TO CHANGE THIS FOR UNIQUE USERS NAME WHEN WE SCALE
     let username: string = req.body.username;
@@ -28,7 +28,7 @@ export const createUser = catchAsync(
       res.cookie("jwtID", token);
       res
         .status(201)
-        .json(serverResponse(`welcome back ${existUser.name}`, existUser));
+        .json(serverResponse(`Welcome back ${existUser.name}`, existUser));
     }
 
     const result = await prisma.user.create({
@@ -44,7 +44,7 @@ export const createUser = catchAsync(
     });
     const token = hashJwt(result.UID);
     res.cookie("jwtID", token);
-    res.json(serverResponse("user was created", result));
+    res.json(serverResponse("User was created", result));
   }
 );
 
@@ -53,10 +53,10 @@ export const addSocial = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { linkedIn, github, behance, dribble, email } = req.body;
     if (!email) {
-      return next(new appError("Couldnt find the user ", 401));
+      return next(new appError("Couldn't find the user ", 401));
     }
     if (!linkedIn || !github || !dribble || !behance) {
-      return next(new appError("Please provide your social Info", 404));
+      return next(new appError("Please provide your social info", 404));
     }
     const result = await prisma.user.update({
       where: {
@@ -73,6 +73,14 @@ export const addSocial = catchAsync(
         },
       },
     });
-    res.status(200).json(serverResponse("Socials was added", result));
+    res.status(200).json(serverResponse("Socials were added", result));
+  }
+);
+
+//Function to validate the JWT
+export const handleJWTValidation = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // If the function is called, then it means no error was presented in the isAuth middleware
+    res.status(200).json(serverResponse("You are authenticated", null));
   }
 );
