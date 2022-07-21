@@ -4,9 +4,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { AuthContextProvider } from "../context/Auth";
-
-
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthContextProvider>

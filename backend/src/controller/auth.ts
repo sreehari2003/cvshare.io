@@ -2,7 +2,7 @@ import { serverResponse } from "../utils/response";
 import appError from "../utils/appError";
 import catchAsync from "../utils/catchAsync";
 import { prisma } from "../server/index";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, User } from "express";
 import { hashJwt } from "../utils/hash";
 
 //Function to create user
@@ -79,8 +79,12 @@ export const addSocial = catchAsync(
 
 //Function to validate the JWT
 export const handleJWTValidation = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: User, res: Response, next: NextFunction) => {
+    const user = req?.user;
+    if (!user) {
+      return next(new appError("User not found", 404));
+    }
     // If the function is called, then it means no error was presented in the isAuth middleware
-    res.status(200).json(serverResponse("You are authenticated", null));
+    res.status(200).json(serverResponse("You are authenticated", user));
   }
 );

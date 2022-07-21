@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "../index";
 
 interface JwtPayload {
-  _id: string;
+  id: string;
 }
 
 export const isAuth = catchAsync(
@@ -21,18 +21,23 @@ export const isAuth = catchAsync(
     } else {
       return next(new AppError("User not logged in", 401));
     }
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
-    if (!_id) {
+    const { id } = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+    if (!id) {
       return next(new AppError("Invalid user id, please login again", 401));
     }
 
     const extistingUser = await prisma.user.findUnique({
       where: {
-        UID: _id,
+        UID: id,
       },
       select: {
         email: true,
         UID: true,
+        Education: true,
+        image: true,
+        Projects: true,
+        username: true,
+        social: true,
       },
     });
     if (extistingUser) {

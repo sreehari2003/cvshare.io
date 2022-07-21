@@ -3,16 +3,18 @@ import { api } from "../api/index";
 import Cookies from "js-cookie";
 
 interface AuthCtx {
-  token: string | null;
   isLoggedIn: boolean;
   logOut: () => void;
   user: any;
+  isLoading: boolean;
+  logInHandler: (el: any) => void;
 }
 const AuthContext = React.createContext<AuthCtx>({
-  token: null,
   isLoggedIn: false,
   logOut: () => {},
   user: null,
+  isLoading: true,
+  logInHandler: () => {},
 });
 
 interface Child {
@@ -20,34 +22,47 @@ interface Child {
 }
 
 export const AuthContextProvider = ({ children }: Child) => {
-  const [token, setToken] = useState(null);
+  const [isLoggedIn, setLogIn] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get("jwtID");
       if (token) {
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        setLoading(true);
+        api.defaults.headers.common["authorization"] = `Bearer ${token}`;
         const { data: user } = await api.get("auth/me");
-        if (user) setUser(user);
+        if (user) {
+          setUser(user?.data);
+          setLogIn(true);
+        }
       }
-      // setLoading(false)
+      setLoading(false);
     }
     loadUserFromCookies();
   }, []);
-  const userIsLoggedIn = !!token;
   const LogOutHandler = () => {
-    setToken(null);
-    window.location.reload();
+    setLogIn(false);
     setUser(null);
+    Cookies.remove("jwtID");
+    window.location.reload();
   };
+  const logInHandler = (user: any) => {
+    setLogIn(true);
+    setUser(user);
+  };
+
   const contextValue = {
-    token,
-    isLoggedIn: userIsLoggedIn,
+    isLoggedIn: isLoggedIn,
     logOut: LogOutHandler,
     user,
+    isLoading,
+    logInHandler,
   };
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
+
+export default AuthContext;
