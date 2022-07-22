@@ -12,6 +12,7 @@ import MainNav from "../../components/Navbar/MainNav";
 
 const Index = () => {
   const { logInHandler, isLoggedIn } = useContext(AuthContext);
+
   // fall back based on auth state
   const { colorMode, toggleColorMode } = useColorMode();
   useEffect(() => {
@@ -101,11 +102,12 @@ const Index = () => {
             <h6>Sign Up With Google</h6>
           </Button>
         </div>
-        <Head>
-          <title>Auth</title>
-          <meta name="description" content="user authorization" />
-        </Head>
       </div>
+      <MainNav />
+      <Head>
+        <title>Auth</title>
+        <meta name="description" content="user authorization" />
+      </Head>
     </>
   );
 };

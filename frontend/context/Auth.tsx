@@ -47,7 +47,6 @@ export const AuthContextProvider = ({ children }: Child) => {
     Cookies.remove("jwtID");
     window.location.reload();
   };
-
   const logInHandler = (user: any) => {
     setLogIn(true);
     setUser(user);
