@@ -2,6 +2,14 @@
 
 The Backend is powerd by typescript , express ,mongodb and prisma
 
+## ENV FILE
+
+    DATABASE_URL: string;
+    PORT: string;
+    CLINETID: string;
+    CLINETSECRET: string;
+    JWT_SECRET: string;
+
 ## Routes
 
 ### Create a new User
