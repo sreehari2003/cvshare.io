@@ -23,14 +23,13 @@ interface Child {
 
 export const AuthContextProvider = ({ children }: Child) => {
   const [isLoggedIn, setLogIn] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get("jwtID");
       if (token) {
-        setLoading(true);
         api.defaults.headers.common["authorization"] = `Bearer ${token}`;
         const { data: user } = await api.get("auth/me");
         if (user) {
@@ -48,6 +47,7 @@ export const AuthContextProvider = ({ children }: Child) => {
     Cookies.remove("jwtID");
     window.location.reload();
   };
+
   const logInHandler = (user: any) => {
     setLogIn(true);
     setUser(user);

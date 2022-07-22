@@ -7,18 +7,18 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import AuthContext from "../../context/Auth";
 import { CREATEUSER } from "../../api";
 import axios from "axios";
-import Cookie from "js-cookie";
 import Head from "next/head";
+import MainNav from "../../components/Navbar/MainNav";
 
 const Index = () => {
-  const { logInHandler } = useContext(AuthContext);
+  const { logInHandler, isLoggedIn } = useContext(AuthContext);
   // fall back based on auth state
   const { colorMode, toggleColorMode } = useColorMode();
   useEffect(() => {
-    if (Cookie.get("jwtID")) {
+    if (isLoggedIn) {
       router.back();
     }
-  }, [Cookie.get("jwtID")]);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (colorMode === "light") {
@@ -80,30 +80,33 @@ const Index = () => {
   };
 
   return (
-    <div
-      className={`h-screen ${background}  flex justify-center items-center flex-col `}
-    >
-      <div className="h-[300px] bg-white flex justify-center items-center flex-col w-[350px] rounded-lg">
-        <h1
-          className="font-bold text-[26px] text-black"
-          onClick={toggleColorMode}
-        >
-          Login/Signup
-        </h1>
-        <Button
-          colorScheme="red"
-          className="flex justify-between mt-10"
-          leftIcon={<AiFillGoogleCircle />}
-          onClick={authFunc}
-        >
-          <h6>Sign Up With Google</h6>
-        </Button>
+    <>
+      <MainNav />
+      <div
+        className={`h-screen ${background}  flex justify-center items-center flex-col`}
+      >
+        <div className="h-[300px] bg-white flex justify-center items-center flex-col w-[350px] rounded-lg">
+          <h1
+            className="font-bold text-[26px] text-black"
+            onClick={toggleColorMode}
+          >
+            Login/Signup
+          </h1>
+          <Button
+            colorScheme="red"
+            className="flex justify-between mt-10"
+            leftIcon={<AiFillGoogleCircle />}
+            onClick={authFunc}
+          >
+            <h6>Sign Up With Google</h6>
+          </Button>
+        </div>
+        <Head>
+          <title>Auth</title>
+          <meta name="description" content="user authorization" />
+        </Head>
       </div>
-      <Head>
-        <title>Auth</title>
-        <meta name="description" content="user authorization" />
-      </Head>
-    </div>
+    </>
   );
 };
 
