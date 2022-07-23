@@ -1,7 +1,5 @@
-export const serverResponse = (message: string, data: unknown) => {
-  return {
-    ok: true,
-    message,
-    data,
-  };
-};
+export const serverResponse = (message: string, data: unknown) => ({
+  ok: true,
+  message,
+  data,
+});

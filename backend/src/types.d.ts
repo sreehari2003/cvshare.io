@@ -1,7 +1,6 @@
-import { Request } from "express";
-import { prisma } from "./server/index";
-import { UserObj } from "./types/user";
-declare module "express" {
+import { Request } from 'express';
+
+declare module 'express' {
   interface User extends Request {
     user: DemoUser;
   }
