@@ -1,9 +1,10 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
-import { AnimatePresence } from "framer-motion";
-import React from "react";
-import { AuthContextProvider } from "../context/Auth";
+/* eslint-disable react/jsx-props-no-spreading */
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import { ChakraProvider } from '@chakra-ui/react';
+import { AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { AuthContextProvider } from '../context/Auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

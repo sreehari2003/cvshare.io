@@ -18,6 +18,6 @@
     "noUnusedLocals": true,
     
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/index.js", "pages/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/index.js", "pages/index.js",".eslintrc.js"],
   "exclude": ["node_modules"]
 }
