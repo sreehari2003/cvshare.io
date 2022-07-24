@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { api } from "../api/index";
-import Cookies from "js-cookie";
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import { api } from '../api/index';
 
 interface AuthCtx {
   isLoggedIn: boolean;
@@ -21,17 +21,17 @@ interface Child {
   children: React.ReactNode;
 }
 
-export const AuthContextProvider = ({ children }: Child) => {
+export function AuthContextProvider({ children }: Child) {
   const [isLoggedIn, setLogIn] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     async function loadUserFromCookies() {
-      const token = Cookies.get("jwtID");
+      const token = Cookies.get('jwtID');
       if (token) {
-        api.defaults.headers.common["authorization"] = `Bearer ${token}`;
-        const { data: user } = await api.get("auth/me");
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
+        const { data: user } = await api.get('auth/me');
         if (user) {
           setUser(user?.data);
           setLogIn(true);
@@ -44,7 +44,7 @@ export const AuthContextProvider = ({ children }: Child) => {
   const LogOutHandler = () => {
     setLogIn(false);
     setUser(null);
-    Cookies.remove("jwtID");
+    Cookies.remove('jwtID');
     window.location.reload();
   };
   const logInHandler = (user: any) => {
@@ -53,15 +53,13 @@ export const AuthContextProvider = ({ children }: Child) => {
   };
 
   const contextValue = {
-    isLoggedIn: isLoggedIn,
+    isLoggedIn,
     logOut: LogOutHandler,
     user,
     isLoading,
     logInHandler,
   };
-  return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  );
-};
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+}
 
 export default AuthContext;
