@@ -21,7 +21,7 @@ function Index() {
   );
   useEffect(() => {
     if (isLoggedIn) {
-      router.replace('/');
+      router.back();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
