@@ -7,17 +7,19 @@ interface Child {
   children: React.ReactNode;
 }
 
-function Protected({ children }: Child) {
+function Protected({ children }: Child): JSX.Element {
   const { isLoading, isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
   useEffect(() => {
-    if (!isLoggedIn && !isLoading) {
-      router.replace('/auth');
+    if (!isLoggedIn) {
+      router.push('/auth');
     }
-  }, [isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   if (isLoading) {
     return <Loading />;
   }
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 }
 

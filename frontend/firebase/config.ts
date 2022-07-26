@@ -13,4 +13,5 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// eslint-disable-next-line import/prefer-default-export
 export const auth = getAuth(app);
