@@ -31,6 +31,7 @@ export function AuthContextProvider({ children }: Child) {
       const token = Cookies.get('jwtID');
       if (token) {
         api.defaults.headers.common.authorization = `Bearer ${token}`;
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { data: user } = await api.get('auth/me');
         if (user) {
           setUser(user?.data);
@@ -47,11 +48,14 @@ export function AuthContextProvider({ children }: Child) {
     Cookies.remove('jwtID');
     window.location.reload();
   };
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const logInHandler = (user: any) => {
     setLogIn(true);
     setUser(user);
   };
-
+  useEffect(() => {
+    console.log('loading', isLoading);
+  }, [isLoading]);
   const contextValue = {
     isLoggedIn,
     logOut: LogOutHandler,

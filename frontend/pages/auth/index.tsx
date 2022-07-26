@@ -7,7 +7,7 @@ import { AiFillGoogleCircle } from 'react-icons/ai';
 import axios from 'axios';
 import { auth } from '../../firebase/config';
 import AuthContext from '../../context/Auth';
-import { CREATEUSER } from '../../api';
+import { CREATEUSER, BASE } from '../../api';
 import MainNav from '../../components/Navbar/MainNav';
 
 function Index() {
@@ -23,7 +23,8 @@ function Index() {
     if (isLoggedIn) {
       router.back();
     }
-  }, [isLoggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (colorMode === 'light') {
@@ -51,7 +52,7 @@ function Index() {
         };
         // sending post req return a boolean
         if (!res.user.emailVerified) throw new Error("Couldn't sign in");
-        const { data } = await axios.post(CREATEUSER, query, {
+        const { data } = await axios.post(BASE + CREATEUSER, query, {
           withCredentials: true,
         });
         if (!data.ok) throw new Error();

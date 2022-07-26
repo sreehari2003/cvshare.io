@@ -1,19 +1,19 @@
 import Axios from 'axios';
 
-const BASE = 'http://localhost:3001/';
+export const BASE = 'http://localhost:3001';
 // GET REQ WITH BEARER TOKEN
 export const VERIFYJWT = `${BASE}auth/me`;
 
 // POST request
-export const CREATEUSER = `${BASE}auth/users`;
+export const CREATEUSER = `/auth/users`;
 // PATCH REQUEST
-export const UPDATESOCIAL = `${BASE}auth/users/social`;
+export const UPDATESOCIAL = `/auth/users/social`;
 // PATCH REQUEST
-export const EDUCATION = `${BASE}auth/users/education`;
+export const EDUCATION = '/auth/users/education';
 // POST request
-export const COMPANY = `${BASE}auth/users/company`;
+export const COMPANY = '/auth/users/company';
 // PATCH REQUEST
-export const USERNAME = `${BASE}auth/users/username`;
+export const USERNAME = '/auth/users/username';
 
 const urls = {
   test: `http://localhost:3001/`,
