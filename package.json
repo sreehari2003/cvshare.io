@@ -1,22 +1,27 @@
 {
-  "name": "hackatarch",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "my-turborepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "prepare": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "eslint . --ext js,jsx,ts,tsx",
+    "lint-fix": "eslint . --ext js,jsx,ts,tsx --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "husky": {
-    "hooks": {}
-  },
-  "author": "sreehari jayaraj",
-  "license": "ISC",
   "devDependencies": {
-    "husky": "^8.0.1"
+    "eslint-config-custom": "workspace:*",
+    "prettier": "latest",
+    "turbo": "latest"
   },
-  "dependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2"
-  }
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "pnpm@7.1.6"
 }
