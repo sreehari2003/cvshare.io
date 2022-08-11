@@ -1,6 +1,6 @@
 # CVSHARE.IO
 
-## A web app that lets you share your cv to companies via oAuth with high customisibilty and lets others rate your cv and a cv sharing app.
+## A web app that lets you share your cv
 
 ## check out the readme files of each backend and frontend for info about setup and env file
 
